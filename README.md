@@ -43,8 +43,9 @@ to demonstrate the implementation of automated tests and meet the required test 
 
 (I won't add too much information; I have commented on the code for each test to explain what it does.)
 
-    • Core Functional Files (mock_camera_pkg/):
+Core Functional Files (mock_camera_pkg/):
 https://github.com/97-cosmin/Testing_project_ROS2/tree/master/mock_camera_pkg
+
         ◦ Contains the main scripts for simulating camera streaming, input validation, and error handling.
         ◦  These are the files responsible for the core functionality of your package, which publishes and subscribes to different types of messages. 
             ▪ camera_stream_publisher.py: Contains the logic for publishing camera stream data. This file handles the publishing aspect of the camera stream. 
@@ -52,13 +53,17 @@ https://github.com/97-cosmin/Testing_project_ROS2/tree/master/mock_camera_pkg
     • publisher_for_errors.py: This file handles the publishing of error messages, likely related to system or data errors, during communication or processing. 
     • subscriber_for_errors.py: The corresponding subscriber for publisher_for_errors.py, this file processes incoming error messages.	
     • camera_config.yaml: Tech specs for D455 camera
-    • Test Files (test/):
+    
+ Test Files (test/):
 https://github.com/97-cosmin/Testing_project_ROS2/tree/master/test
+
         ◦ Unit Tests: Validate individual components of the system. 
         ◦ Integration Tests: Test the interaction between different components and ensure that the whole system works together. 
         ◦ Reports: Generated HTML reports summarizing the results of the tests, including functional, integration, error handling, and performance tests. 
-    • Configuration and Metadata Files:
+
+Configuration and Metadata Files:
 https://github.com/97-cosmin/Testing_project_ROS2/tree/master
+
         ◦ setup.py: Defines the setup process for the package. 
         ◦ package.xml: ROS-specific metadata. 
         ◦ mock_camera_pkg.egg-info: Contains metadata used during packaging and distribution.
