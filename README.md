@@ -40,7 +40,9 @@ Implementation of Automated Tests**
 
 I chose to create a Git repository: https://github.com/97-cosmin/Testing_project_ROS2/tree/master
 to demonstrate the implementation of automated tests and meet the required test examples.
+
 (I won't add too much information; I have commented on the code for each test to explain what it does.)
+
     • Core Functional Files (mock_camera_pkg/):
 https://github.com/97-cosmin/Testing_project_ROS2/tree/master/mock_camera_pkg
         ◦ Contains the main scripts for simulating camera streaming, input validation, and error handling.
