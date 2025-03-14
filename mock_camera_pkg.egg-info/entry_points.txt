@@ -1,0 +1,8 @@
+[console_scripts]
+Input_Validation_Publisher = mock_camera_pkg.Input_Validation_Publisher:main
+Input_Validation_Subscriber = mock_camera_pkg.Input_Validation_Subscriber:main
+camera_stream_publisher = mock_camera_pkg.camera_stream_publisher:main
+camera_stream_subscriber = mock_camera_pkg.camera_stream_subscriber:main
+mock_camera_publisher = mock_camera_pkg.mock_camera_publisher:main
+mock_camera_subscriber = mock_camera_pkg.mock_camera_subscriber:main
+
