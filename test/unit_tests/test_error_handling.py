@@ -72,7 +72,7 @@ def test_negative_publisher_initialization_invalid_yaml(rclpy_init, temp_config_
     with open(temp_config_file, 'w') as f:
         f.write("invalid: yaml: content")
     try:
-        publisher = CameraStreamPublisher()
+        publisher = CameraStreamPublisher_for_errors()
     except yaml.YAMLError:
         print("Test 3: PASSED - S-a ridicat corect YAMLError pentru format YAML invalid.")
     except Exception as e:
@@ -83,7 +83,7 @@ def test_negative_missing_config_parameter(rclpy_init, temp_config_file):
     with open(temp_config_file, 'w') as f:
         yaml.dump({'camera': {'rgb': {'resolution': '1080p'}}}, f)
     try:
-        publisher = CameraStreamPublisher()
+        publisher = CameraStreamPublisher_for_errors()
     except KeyError:
         print("Test 4: PASSED - S-a ridicat corect KeyError pentru parametru lipsa in configurare.")
     except Exception as e:
@@ -107,7 +107,7 @@ def test_rgb_fps_invalid_range(rclpy_init, temp_config_file):
             }
         }, f)
     try:
-        publisher = CameraStreamPublisher()
+        publisher = CameraStreamPublisher_for_errors()
     except ValueError:
         print("Test 5: PASSED - S-a ridicat corect ValueError pentru FPS invalid la RGB.")
     except Exception as e:
@@ -131,7 +131,7 @@ def test_infrared_fps_invalid_range(rclpy_init, temp_config_file):
             }
         }, f)
     try:
-        publisher = CameraStreamPublisher()
+        publisher = CameraStreamPublisher_for_errors()
     except ValueError:
         print("Test 6: PASSED - S-a ridicat corect ValueError pentru FPS invalid la Infrared.")
     except Exception as e:
@@ -142,7 +142,7 @@ def test_empty_config_file(rclpy_init, temp_config_file):
     with open(temp_config_file, 'w') as f:
         f.write("")  # Fisier gol
     try:
-        publisher = CameraStreamPublisher()
+        publisher = CameraStreamPublisher_for_errors()
     except yaml.YAMLError:
         print("Test 7: PASSED - S-a ridicat corect YAMLError pentru fisier de configurare gol.")
     except Exception as e:
@@ -156,7 +156,7 @@ def test_invalid_config_structure(rclpy_init, temp_config_file):
         }, f)
 
     try:
-        publisher = CameraStreamPublisher()  # Ar trebui sa ridice o exceptie
+        publisher = CameraStreamPublisher_for_errors()  # Ar trebui sa ridice o exceptie
         pytest.fail("Test 8: FAILED - Exceptia asteptata nu a fost ridicata.")  # Daca ajunge aici, e un esec
     except KeyError as e:
         print(f"Test 8: PASSED - S-a ridicat corect KeyError pentru structura invalida a configuratiei.")

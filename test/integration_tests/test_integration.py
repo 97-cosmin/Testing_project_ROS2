@@ -1,4 +1,5 @@
 import pytest
+import os
 import rclpy
 from launch import LaunchDescription
 from launch_ros.actions import Node
@@ -8,7 +9,7 @@ from mock_camera_pkg.camera_stream_subscriber import CameraStreamSubscriber
 from mock_camera_pkg.publisher_for_errors import CameraStreamPublisher_for_errors
 from mock_camera_pkg.subscriber_for_errors import CameraStreamSubscriber
 
-# Importă toate testele tale
+# Importă testele unitare
 from test.unit_tests.test_functional import (
     test_positive_publisher_initialization,
     test_positive_stream_activation,
@@ -17,9 +18,13 @@ from test.unit_tests.test_functional import (
 )
 from test.unit_tests.test_error_handling import (
     test_positive_publisher_initialization,
+    test_negative_publisher_initialization_missing_config,
+    test_negative_publisher_initialization_invalid_yaml,
     test_rgb_fps_invalid_range,
     test_infrared_fps_invalid_range,
     test_negative_missing_config_parameter,
+    test_empty_config_file,
+    test_invalid_config_structure,
 )
 from test.unit_tests.test_performance import (
     test_rgb_fps_valid_range,
@@ -32,6 +37,14 @@ from test.unit_tests.test_performance import (
     test_throughput,
 )
 
+# Fixture pentru crearea unui fișier de configurare temporar
+@pytest.fixture
+def temp_config_file(tmpdir):
+    config_path = tmpdir.join("camera_config.yaml")
+    yield str(config_path)
+    if os.path.exists(config_path):
+        os.remove(config_path)
+
 # Fixture pentru inițializarea și închiderea ROS 2
 @pytest.fixture(scope="module")
 def rclpy_init():
@@ -39,7 +52,7 @@ def rclpy_init():
     yield
     rclpy.shutdown()
 
-# Funcție pentru generarea descrierii testului
+# Funcție pentru descrierea testului
 def generate_test_description():
     publisher_node = Node(
         package='mock_camera_pkg',
@@ -58,21 +71,25 @@ def generate_test_description():
         ReadyToTest()
     ])
 
-# Test de integrare pentru toate testele funcționale
+# Test de integrare pentru funcționalitate
 def test_functional_integration(rclpy_init):
     test_positive_publisher_initialization(rclpy_init)
     test_positive_stream_activation(rclpy_init)
     test_negative_infrared_disabled(rclpy_init)
     test_positive_message_content(rclpy_init)
 
-# Test de integrare pentru toate testele de gestionare a erorilor
-def test_error_handling_integration(rclpy_init):
-    test_positive_publisher_initialization(rclpy_init)
-    test_rgb_fps_invalid_range(rclpy_init)
-    test_infrared_fps_invalid_range(rclpy_init)
-    test_negative_missing_config_parameter(rclpy_init)
+# Test de integrare pentru gestionarea erorilor
+def test_error_handling_integration(rclpy_init, temp_config_file):
+    test_positive_publisher_initialization(rclpy_init, temp_config_file)
+    test_negative_publisher_initialization_missing_config(rclpy_init, temp_config_file)
+    test_negative_publisher_initialization_invalid_yaml(rclpy_init, temp_config_file)
+    test_rgb_fps_invalid_range(rclpy_init, temp_config_file)
+    test_infrared_fps_invalid_range(rclpy_init, temp_config_file)
+    test_negative_missing_config_parameter(rclpy_init, temp_config_file)
+    test_empty_config_file(rclpy_init, temp_config_file)
+    test_invalid_config_structure(rclpy_init, temp_config_file)
 
-# Test de integrare pentru toate testele de performanță
+# Test de integrare pentru performanță
 def test_performance_integration(rclpy_init):
     test_rgb_fps_valid_range(rclpy_init)
     test_infrared_fps_valid_range(rclpy_init)
@@ -103,6 +120,7 @@ def test_camera_stream_integration(rclpy_init):
     assert subscriber_node.received_msg is not None, "Subscriber did not receive the message"
     assert subscriber_node.received_msg == "Test message", "Received message does not match"
 
-# Rulează toate testele de integrare
+# Rulează testele de integrare
 if __name__ == "__main__":
     pytest.main([__file__, "--html=report_integration.html", "--self-contained-html", "--tb=short"])
+
