@@ -3,19 +3,16 @@
 	This document aims to describe the testing plan for the software components responsible for managing and validating video streams from the Intel RealSense D455 camera. 
 Since I do not have access to the physical device, I searched for a way to simulate the camera's real behavior and decided to use mocks. 
 
-Why I decided to use mocks? Because firstly I searched for:
-	A .bat file for ROS1:
+Why I decided to use mocks? Because firstly
+I searched for:
+	1.	A .bat file for ROS1:
 	I initially searched for a .bat file, but I found that the files I came across were 	designed for ROS1. Since I was already advanced with setting up the environment 	for ROS2, this wasn’t a suitable solution for me.
     • Reaching out to friends:
-
-I also tried asking around among my friends to see if anyone had a camera similar to the Intel RealSense D455, but unfortunately, I couldn’t find anyone with access to the hardware I needed.
-
-• Attempting to use Gazebo for simulation:
-	
+	2.I also tried asking around among my friends to see if anyone had a camera similar to the Intel RealSense D455, but unfortunately, I couldn’t find anyone with access to the hardware I needed.
+	3. Attempting to use Gazebo for simulation:
 	I explored using Gazebo for simulating the camera, but I ran into a dead end because there wasn’t a plugin available for the Intel RealSense D455, and I couldn’t find anything useful on the internet to help me.
 
 Using Mocks for Simulation:
-	
 	In the end, I decided to create mock objects to simulate the behavior of the Intel RealSense D455 camera. 
 	Mocks are simulated objects or components used in testing to mimic the behavior of real objects. In this case, I created mock objects to replicate the behavior of the Intel RealSense D455 camera. 
 
