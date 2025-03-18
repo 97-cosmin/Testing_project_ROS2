@@ -4,7 +4,6 @@
 Since I do not have access to the physical device, I searched for a way to simulate the camera's real behavior and decided to use mocks. 
 
 Why I decided to use mocks? Because firstly I searched for:
-
 	A .bat file for ROS1:
 	I initially searched for a .bat file, but I found that the files I came across were 	designed for ROS1. Since I was already advanced with setting up the environment 	for ROS2, this wasn’t a suitable solution for me.
     • Reaching out to friends:
